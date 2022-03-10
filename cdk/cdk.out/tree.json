@@ -1,0 +1,741 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.148.0"
+        }
+      },
+      "AppsyncLambdaAuthIssueStack": {
+        "id": "AppsyncLambdaAuthIssueStack",
+        "path": "AppsyncLambdaAuthIssueStack",
+        "children": {
+          "AppSyncAuthorizerHandler": {
+            "id": "AppSyncAuthorizerHandler",
+            "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "lambda:InvokeFunction",
+                                  "Effect": "Allow",
+                                  "Resource": "arn:aws:iam::*:role/aws-service-role/appsync.amazonaws.com/AWSServiceRoleForAppSync"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "AppSyncAuthorizerHandlerServiceRoleDefaultPolicyAA9D8EDC",
+                            "roles": [
+                              {
+                                "Ref": "AppSyncAuthorizerHandlerServiceRole0E130E71"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                          "version": "1.148.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Policy",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.148.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.148.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParametersad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fdS3Bucket86FFEFD3"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParametersad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fdS3VersionKeyD13DFF17"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParametersad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fdS3VersionKeyD13DFF17"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "AppSyncAuthorizerHandlerServiceRole0E130E71",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "lambda-authorizer.handler",
+                    "memorySize": 1024,
+                    "runtime": "nodejs14.x"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.148.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.148.0"
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "AppsyncLambdaAuthIssueStack/AssetParameters",
+            "children": {
+              "ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd": {
+                "id": "ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd",
+                "path": "AppsyncLambdaAuthIssueStack/AssetParameters/ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "AppsyncLambdaAuthIssueStack/AssetParameters/ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "AppsyncLambdaAuthIssueStack/AssetParameters/ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "AppsyncLambdaAuthIssueStack/AssetParameters/ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.148.0"
+                }
+              },
+              "dbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfae": {
+                "id": "dbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfae",
+                "path": "AppsyncLambdaAuthIssueStack/AssetParameters/dbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfae",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "AppsyncLambdaAuthIssueStack/AssetParameters/dbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfae/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "AppsyncLambdaAuthIssueStack/AssetParameters/dbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfae/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "AppsyncLambdaAuthIssueStack/AssetParameters/dbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfae/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.148.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.148.0"
+            }
+          },
+          "Api": {
+            "id": "Api",
+            "path": "AppsyncLambdaAuthIssueStack/Api",
+            "children": {
+              "ApiLogsRole": {
+                "id": "ApiLogsRole",
+                "path": "AppsyncLambdaAuthIssueStack/Api/ApiLogsRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AppsyncLambdaAuthIssueStack/Api/ApiLogsRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "appsync.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSAppSyncPushToCloudWatchLogs"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.148.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AppsyncLambdaAuthIssueStack/Api/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::AppSync::GraphQLApi",
+                  "aws:cdk:cloudformation:props": {
+                    "authenticationType": "AWS_LAMBDA",
+                    "name": "cdk-appsync-api",
+                    "lambdaAuthorizerConfig": {
+                      "authorizerUri": {
+                        "Fn::GetAtt": [
+                          "AppSyncAuthorizerHandlerFB18D519",
+                          "Arn"
+                        ]
+                      }
+                    },
+                    "logConfig": {
+                      "cloudWatchLogsRoleArn": {
+                        "Fn::GetAtt": [
+                          "ApiApiLogsRole90293F72",
+                          "Arn"
+                        ]
+                      },
+                      "fieldLogLevel": "ALL"
+                    },
+                    "xrayEnabled": false
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.CfnGraphQLApi",
+                  "version": "1.148.0"
+                }
+              },
+              "Schema": {
+                "id": "Schema",
+                "path": "AppsyncLambdaAuthIssueStack/Api/Schema",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::AppSync::GraphQLSchema",
+                  "aws:cdk:cloudformation:props": {
+                    "apiId": {
+                      "Fn::GetAtt": [
+                        "ApiF70053CD",
+                        "ApiId"
+                      ]
+                    },
+                    "definition": "type Query {\n  sayHello(yourName: String): String\n}"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.CfnGraphQLSchema",
+                  "version": "1.148.0"
+                }
+              },
+              "lambdaDatasource": {
+                "id": "lambdaDatasource",
+                "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/ServiceRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "appsync.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.148.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "lambda:InvokeFunction",
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::GetAtt": [
+                                          "AppSyncSayHelloHandler2D2BBD8A",
+                                          "Arn"
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "ApilambdaDatasourceServiceRoleDefaultPolicy3A97E34D",
+                                "roles": [
+                                  {
+                                    "Ref": "ApilambdaDatasourceServiceRole2CA75790"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                              "version": "1.148.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Policy",
+                          "version": "1.148.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::AppSync::DataSource",
+                      "aws:cdk:cloudformation:props": {
+                        "apiId": {
+                          "Fn::GetAtt": [
+                            "ApiF70053CD",
+                            "ApiId"
+                          ]
+                        },
+                        "name": "lambdaDatasource",
+                        "type": "AWS_LAMBDA",
+                        "lambdaConfig": {
+                          "lambdaFunctionArn": {
+                            "Fn::GetAtt": [
+                              "AppSyncSayHelloHandler2D2BBD8A",
+                              "Arn"
+                            ]
+                          }
+                        },
+                        "serviceRoleArn": {
+                          "Fn::GetAtt": [
+                            "ApilambdaDatasourceServiceRole2CA75790",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.CfnDataSource",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "QuerysayHelloResolver": {
+                    "id": "QuerysayHelloResolver",
+                    "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/QuerysayHelloResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "AppsyncLambdaAuthIssueStack/Api/lambdaDatasource/QuerysayHelloResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "ApiF70053CD",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "sayHello",
+                            "typeName": "Query",
+                            "dataSourceName": "lambdaDatasource",
+                            "kind": "UNIT"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.148.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.LambdaDataSource",
+                  "version": "1.148.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-appsync.GraphqlApi",
+              "version": "1.148.0"
+            }
+          },
+          "AppSyncSayHelloHandler": {
+            "id": "AppSyncSayHelloHandler",
+            "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.148.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.148.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.148.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.148.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncSayHelloHandler/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParametersdbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfaeS3Bucket5E85D5EF"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParametersdbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfaeS3VersionKey581FE48F"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParametersdbb99ee7dff7a4d9d48168dcee97c0f3007c0dc392c42d5e5e3e7801923cbfaeS3VersionKey581FE48F"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "AppSyncSayHelloHandlerServiceRole699D1A6F",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "main.handler",
+                    "memorySize": 1024,
+                    "runtime": "nodejs14.x"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.148.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.148.0"
+            }
+          },
+          "GraphQLAPIURL": {
+            "id": "GraphQLAPIURL",
+            "path": "AppsyncLambdaAuthIssueStack/GraphQLAPIURL",
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CfnOutput",
+              "version": "1.148.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "AppsyncLambdaAuthIssueStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "AppsyncLambdaAuthIssueStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.148.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "AppsyncLambdaAuthIssueStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnCondition",
+                  "version": "1.148.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.148.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.148.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.148.0"
+    }
+  }
+}
