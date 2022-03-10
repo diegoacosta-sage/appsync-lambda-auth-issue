@@ -1,4 +1,4 @@
-Just to reproduce the issue when using Lambda Authorizers in AppSync with CDK.
+# Repo to reproduce the issue when using Lambda Authorizers in AppSync with CDK.
 
 Steps to reproduce:
 1- npm run build
