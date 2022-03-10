@@ -1,0 +1,1 @@
+Just to reproduce the issue when using Lambda Authorizers in AppSync with CDK
