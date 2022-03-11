@@ -34,30 +34,6 @@
         "aws:cdk:path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/Resource"
       }
     },
-    "AppSyncAuthorizerHandlerServiceRoleDefaultPolicyAA9D8EDC": {
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "lambda:InvokeFunction",
-              "Effect": "Allow",
-              "Resource": "arn:aws:iam::*:role/aws-service-role/appsync.amazonaws.com/AWSServiceRoleForAppSync"
-            }
-          ],
-          "Version": "2012-10-17"
-        },
-        "PolicyName": "AppSyncAuthorizerHandlerServiceRoleDefaultPolicyAA9D8EDC",
-        "Roles": [
-          {
-            "Ref": "AppSyncAuthorizerHandlerServiceRole0E130E71"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/DefaultPolicy/Resource"
-      }
-    },
     "AppSyncAuthorizerHandlerFB18D519": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -110,7 +86,6 @@
         "Runtime": "nodejs14.x"
       },
       "DependsOn": [
-        "AppSyncAuthorizerHandlerServiceRoleDefaultPolicyAA9D8EDC",
         "AppSyncAuthorizerHandlerServiceRole0E130E71"
       ],
       "Metadata": {
@@ -118,6 +93,22 @@
         "aws:asset:path": "asset.ad945e13a29dbd2a7dfb67eadcfd2423f124160110b058a6ea21bc84e0d128fd",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
+      }
+    },
+    "AppSyncAuthorizerHandlerappsyncDBE16E59": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "AppSyncAuthorizerHandlerFB18D519",
+            "Arn"
+          ]
+        },
+        "Principal": "appsync.amazonaws.com"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/appsync"
       }
     },
     "ApiApiLogsRole90293F72": {
@@ -396,7 +387,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WP3U7DMAxGn2X3qUfFEFyyH7GbSYz2CUxqtqxp0sXJ0BTl3WkyDcGVz7Hs5HMN9eIFHmav+M2V7Pp5lNYRxNaj7MWSmfyEB2UOYm0NexekF+svs0eHA3lyWd6DH0NpN8Q2OEmZp/lOeWVNEvnxqHH47BDiWzAyt/PMnZNQOEBsrC6rpe6tVvJaPiuUBD9WmBMxlGCTwyrInvwKmQSOI1+NhLh1OB7PejmqvFzsY/ffWnmkAcWuRNqgx/Y39h/L1+jL7cY7p5SEsR3BieeXegH1MzzNTqxU5YLxaiBobvUHegdJHVoBAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WPzU7DMBCEn6V3Z0tEERzpj+BSiZA8weIsrZv4B69dVFl5d2JXoHLa+Vazq5ka6tUT3C2e8Zsr2Q/LJK0nSF1AOYg1M4VZHpQ5iK01HHyUQWw/TYMeNQXyGd5icLGsW2IbvaSsZ3+vgrJmEvl5GlF/9AjpJRqZ19lzqxvyWjGXA4UaUmvH8qjMxo5KXoqvqEnwfYU5H0OJOTNsohwobJBJoHN8MRLSq0d3/BrXTuXjQu/7/9TJI2kU+xJwhwG7vxI3lLuN52vjXz1NkzC2Jzjx8lyvoH6Eh8WJlap8NEFpgvY6fwD3fGjfaAEAAA=="
       },
       "Metadata": {
         "aws:cdk:path": "AppsyncLambdaAuthIssueStack/CDKMetadata/Default"

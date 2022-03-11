@@ -2,27 +2,35 @@ import * as cdk from '@aws-cdk/core';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as appsync from '@aws-cdk/aws-appsync';
+import { ServicePrincipal } from '@aws-cdk/aws-iam';
 
 export class AppsyncLambdaAuthIssueStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
-    const allowAppSyncPolicyStatement = new iam.PolicyStatement({
-      effect: iam.Effect.ALLOW,
-      actions: ['lambda:InvokeFunction'],
-      resources: [
-        'arn:aws:iam::*:role/aws-service-role/appsync.amazonaws.com/AWSServiceRoleForAppSync'
-      ],
-    })
 
     const authorizerLambda = new lambda.Function(this, 'AppSyncAuthorizerHandler', {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'lambda-authorizer.handler',
       code: lambda.Code.fromAsset('src/authorizer'),
       memorySize: 1024
-    });
+    });    
 
-    authorizerLambda.addToRolePolicy(allowAppSyncPolicyStatement);
+    // THIS IS WRONG IN MANY WAYS
+    // const allowAppSyncPolicyStatement = new iam.PolicyStatement({
+    //   effect: iam.Effect.ALLOW,
+    //   actions: ['lambda:InvokeFunction'],
+    //   resources: [
+    //     'arn:aws:iam::*:role/aws-service-role/appsync.amazonaws.com/AWSServiceRoleForAppSync'
+    //   ],
+    // })
+    // authorizerLambda.addToRolePolicy(allowAppSyncPolicyStatement);
+
+    // ACCORDING TO THE DOC IN https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-appsync.LambdaAuthorizerConfig.html#handlerspan-classapi-icon-api-icon-experimental-titlethis-api-element-is-experimental-it-may-change-without-noticespan
+    // THIS IS WHAT YOU SHOULD DO... ADD THE FOLLOWING RESOURCE-BASED POLICY TO THE LAMBDA:
+    authorizerLambda.addPermission("appsync", {
+      principal: new ServicePrincipal('appsync.amazonaws.com'),
+      action: 'lambda:InvokeFunction',
+    })
 
     const api = new appsync.GraphqlApi(this, 'Api', {
       name: 'cdk-appsync-api',

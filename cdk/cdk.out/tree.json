@@ -62,45 +62,6 @@
                       "fqn": "@aws-cdk/aws-iam.CfnRole",
                       "version": "1.148.0"
                     }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/ServiceRole/DefaultPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "lambda:InvokeFunction",
-                                  "Effect": "Allow",
-                                  "Resource": "arn:aws:iam::*:role/aws-service-role/appsync.amazonaws.com/AWSServiceRoleForAppSync"
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "AppSyncAuthorizerHandlerServiceRoleDefaultPolicyAA9D8EDC",
-                            "roles": [
-                              {
-                                "Ref": "AppSyncAuthorizerHandlerServiceRole0E130E71"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                          "version": "1.148.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-iam.Policy",
-                      "version": "1.148.0"
-                    }
                   }
                 },
                 "constructInfo": {
@@ -191,6 +152,27 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.148.0"
+                }
+              },
+              "appsync": {
+                "id": "appsync",
+                "path": "AppsyncLambdaAuthIssueStack/AppSyncAuthorizerHandler/appsync",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "AppSyncAuthorizerHandlerFB18D519",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "appsync.amazonaws.com"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnPermission",
                   "version": "1.148.0"
                 }
               }
